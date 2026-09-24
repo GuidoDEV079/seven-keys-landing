@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Seven Keys of the Mountain</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16110d;
+    --ink-2:#2b1d13;
+    --ember:#c97a3d;
+    --ember-bright:#e8965a;
+    --ember-deep:#9c5a28;
+    --parchment:#f1e8d8;
+    --parchment-2:#e5d7bd;
+    --stone:#5b6b66;
+    --stone-2:#334039;
+    --charcoal:#251c14;
+    --cream:#f4eee2;
+    --serif:'Fraunces', Georgia, 'Iowan Old Style', serif;
+    --sans:'Work Sans', 'Segoe UI', system-ui, sans-serif;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *,*::before,*::after{box-sizing:inherit;}
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){ color-scheme: dark; }
+  }
+  :root[data-theme="dark"]{ color-scheme: dark; }
+  html{scroll-behavior:smooth; scroll-padding-top:env(safe-area-inset-top,0px);}
+  body{
+    margin:0;
+    background:var(--parchment);
+    color:var(--charcoal);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  .container{max-width:760px;margin:0 auto;padding:0 24px;}
+  h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.15;margin:0 0 .5em;}
+  p{margin:0 0 1em;}
+  .measure{max-width:62ch;}
+
+  /* ---------- Nav ---------- */
+  .nav{
+    position:sticky;top:0;z-index:40;
+    padding-top:calc(14px + env(safe-area-inset-top,0px));
+    padding-bottom:14px;
+    background:rgba(22,17,13,.92);
+    backdrop-filter:blur(6px);
+  }
+  .nav .container{display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .brand{display:flex;align-items:center;gap:10px;color:var(--cream);text-decoration:none;font-family:var(--serif);font-size:1.05rem;font-weight:600;letter-spacing:.01em;}
+  .brand svg{width:26px;height:26px;color:var(--ember-bright);flex:none;}
+  .nav-links{display:flex;align-items:center;gap:22px;}
+  .nav-links a{color:var(--parchment-2);text-decoration:none;font-size:.92rem;}
+  .nav-links a:hover{color:var(--cream);}
+  .nav .btn{padding:9px 18px;font-size:.9rem;}
+  @media (max-width:640px){ .nav-links a:not(.btn){display:none;} }
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-block;
+    background:var(--ember);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-weight:600;
+    text-decoration:none;
+    padding:14px 28px;
+    border-radius:3px;
+    border:1px solid var(--ember);
+    transition:background .15s ease, transform .15s ease;
+  }
+  .btn:hover{background:var(--ember-bright);}
+  .btn:active{transform:translateY(1px);}
+  .btn-ghost{background:transparent;color:var(--cream);border:1px solid rgba(244,238,226,.35);}
+  .btn-ghost:hover{background:rgba(244,238,226,.08);border-color:rgba(244,238,226,.6);}
+  .btn:focus-visible, a:focus-visible, summary:focus-visible{outline:2px solid var(--ember-bright);outline-offset:3px;}
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;background:var(--ink);color:var(--cream);overflow:hidden;}
+  .hero-art{position:absolute;inset:0;width:100%;height:100%;}
+  .hero-inner{position:relative;z-index:2;padding:96px 24px 120px;text-align:center;}
+  .hero-inner .container{max-width:660px;}
+  .hero h1{
+    font-size:clamp(2.1rem, 5vw, 3.1rem);
+    color:var(--cream);
+    opacity:0;
+    animation:rise .9s .1s ease-out forwards;
+  }
+  .hero .lede{
+    font-size:1.15rem;
+    color:var(--parchment-2);
+    margin:0 auto 2em;
+    max-width:52ch;
+    opacity:0;
+    animation:rise .9s .3s ease-out forwards;
+  }
+  .hero .cta-row{opacity:0;animation:rise .9s .5s ease-out forwards;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+  @keyframes rise{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+  @media (prefers-reduced-motion: reduce){
+    .hero h1,.hero .lede,.hero .cta-row{animation:none;opacity:1;}
+  }
+
+  /* ---------- Sections ---------- */
+  .section{padding:76px 24px;}
+  .section-dark{background:var(--stone-2);color:var(--cream);}
+  .section-dark .eyebrow-line{background:rgba(244,238,226,.18);}
+  .kicker{font-family:var(--serif);font-style:italic;color:var(--ember-deep);font-size:1.05rem;margin-bottom:.3em;}
+  .section-dark .kicker{color:var(--ember-bright);}
+  h2{font-size:clamp(1.6rem,3.4vw,2.1rem);}
+
+  /* ---------- Keys list ---------- */
+  .keys{list-style:none;margin:36px 0 0;padding:0;border-top:1px solid rgba(244,238,226,.18);}
+  .key{display:grid;grid-template-columns:56px 1fr;gap:18px;padding:26px 0;border-bottom:1px solid rgba(244,238,226,.18);}
+  .key .num{font-family:var(--serif);font-size:1.6rem;color:var(--ember-bright);line-height:1;}
+  .key h3{font-size:1.12rem;color:var(--cream);margin-bottom:.25em;}
+  .key p{color:var(--parchment-2);margin:0;font-size:.98rem;}
+
+  /* ---------- Two-col ---------- */
+  .split{display:grid;grid-template-columns:1fr;gap:40px;align-items:start;}
+  @media (min-width:720px){.split{grid-template-columns:1.1fr .9fr;}}
+  .mark{width:64px;height:64px;color:var(--ember-deep);margin-bottom:18px;}
+
+  /* ---------- Includes list ---------- */
+  .includes{list-style:none;margin:24px 0 0;padding:0;}
+  .includes li{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--parchment-2);}
+  .includes li:last-child{border-bottom:none;}
+  .includes svg{flex:none;width:20px;height:20px;color:var(--ember-deep);margin-top:3px;}
+
+  /* ---------- FAQ ---------- */
+  .faq{border-top:1px solid var(--parchment-2);}
+  details{border-bottom:1px solid var(--parchment-2);padding:18px 0;}
+  summary{cursor:pointer;font-family:var(--serif);font-size:1.08rem;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center;}
+  summary::-webkit-details-marker{display:none;}
+  summary::after{content:'+';font-family:var(--sans);font-weight:400;font-size:1.4rem;color:var(--ember-deep);flex:none;}
+  details[open] summary::after{content:'\2212';}
+  details p{margin:.9em 0 0;color:var(--charcoal);max-width:62ch;}
+
+  /* ---------- Final CTA ---------- */
+  .cta-final{background:var(--ink);color:var(--cream);text-align:center;}
+  .price-row{display:flex;align-items:baseline;justify-content:center;gap:10px;margin:8px 0 26px;}
+  .price{font-family:var(--serif);font-size:2.4rem;color:var(--cream);}
+  .price-note{color:var(--parchment-2);font-size:.95rem;}
+  .guarantee-badge{display:inline-flex;align-items:center;gap:8px;color:var(--parchment-2);font-size:.88rem;margin-top:18px;}
+  .guarantee-badge svg{width:16px;height:16px;color:var(--ember-bright);}
+
+  footer{background:var(--ink-2);color:var(--parchment-2);padding:40px 24px;font-size:.85rem;}
+  footer .container{display:flex;flex-direction:column;gap:10px;}
+  footer .fbrand{color:var(--cream);font-family:var(--serif);}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 40 40" fill="none"><path d="M20 6c-2 0-3.6 1.7-3.9 3.7C12 12.3 8 18.4 8 26.4c0 4.2 2.4 5.9 12 5.9s12-1.7 12-5.9c0-8-4-14.1-8.1-16.7C23.6 7.7 22 6 20 6z" fill="currentColor"/></svg>
+      The Mountain Hermit
+    </a>
+    <div class="nav-links">
+      <a href="#keys">The 7 Keys</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn" href="#get-access">Get the Book</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <svg class="hero-art" viewBox="0 0 1200 560" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#1b140f"/>
+        <stop offset="58%" stop-color="#2b1d13"/>
+        <stop offset="100%" stop-color="#3e2712"/>
+      </linearGradient>
+      <radialGradient id="sun" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#e8965a" stop-opacity=".85"/>
+        <stop offset="55%" stop-color="#c97a3d" stop-opacity=".3"/>
+        <stop offset="100%" stop-color="#c97a3d" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect x="0" y="0" width="1200" height="560" fill="url(#sky)"/>
+    <circle cx="600" cy="380" r="170" fill="url(#sun)"/>
+    <g fill="#f4eee2" opacity=".55">
+      <circle cx="120" cy="80" r="1.6"/><circle cx="220" cy="140" r="1.2"/><circle cx="340" cy="60" r="1.8"/>
+      <circle cx="460" cy="120" r="1.3"/><circle cx="580" cy="70" r="1.6"/><circle cx="760" cy="100" r="1.3"/>
+      <circle cx="880" cy="60" r="1.8"/><circle cx="990" cy="130" r="1.3"/><circle cx="1080" cy="80" r="1.6"/>
+      <circle cx="60" cy="190" r="1.2"/><circle cx="1140" cy="180" r="1.3"/>
+    </g>
+    <polygon points="0,420 80,360 160,400 260,340 360,392 460,332 560,382 660,340 760,400 860,350 960,392 1060,330 1160,382 1200,360 1200,560 0,560" fill="#5b6b66" opacity=".5"/>
+    <polygon points="0,480 100,402 220,460 320,382 420,452 540,392 640,460 760,402 860,470 980,412 1080,460 1200,420 1200,560 0,560" fill="#334039" opacity=".85"/>
+    <polygon points="0,560 60,472 140,512 220,452 300,502 380,442 460,502 560,462 640,512 740,452 820,502 900,462 980,512 1080,472 1160,506 1200,482 1200,560 0,560" fill="#16110d"/>
+  </svg>
+  <div class="hero-inner">
+    <div class="container">
+      <h1>The mountain doesn't rush. Neither do the people who actually make it.</h1>
+      <p class="lede">One man walked away from the noise to find out what really separates the people who succeed from everyone else still spinning their wheels. It came down to seven things — and rushing wasn't one of them.</p>
+      <div class="cta-row">
+        <a class="btn" href="#get-access">Get The Seven Keys of the Mountain</a>
+        <a class="btn btn-ghost" href="#keys">See what's inside</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container measure">
+    <p class="kicker">The problem</p>
+    <h2>Everyone's in a hurry. Almost no one arrives.</h2>
+    <p>Look around online and it's the same noise everywhere: a new tactic, a new shortcut, a new app that supposedly changes everything by Tuesday. People jump from one to the next, sure that the next one is finally the one that works.</p>
+    <p>Meanwhile, a small number of people just keep doing the same unglamorous things, in the same order, for long enough that it actually adds up. They're not smarter. They're not luckier. They just stopped rushing.</p>
+    <p>There's an old story in the book about a hand pump at a well, and a thirsty traveler who nearly walked away six pumps short of water. It's a small story. It's also more or less the whole idea.</p>
+  </div>
+</section>
+
+<section class="section section-dark" id="keys">
+  <div class="container">
+    <p class="kicker">Inside the book</p>
+    <h2>Seven keys. One order. No shortcuts.</h2>
+    <p class="measure" style="color:var(--parchment-2)">Each one builds on the last, which is exactly why skipping ahead never works — on the mountain or in a business.</p>
+    <ul class="keys">
+      <li class="key"><span class="num">1</span><div><h3>The Map — Make a Plan</h3><p>Know exactly where you're going before you spend one more hour working toward nowhere in particular.</p></div></li>
+      <li class="key"><span class="num">2</span><div><h3>The First Step — Take Action</h3><p>A plan nobody acts on is just a nice document. This is exactly where most people quietly stop.</p></div></li>
+      <li class="key"><span class="num">3</span><div><h3>The Long Trail — Stay Focused</h3><p>The path is longer than it looks from the bottom. This is how you stay on it once it stops feeling exciting.</p></div></li>
+      <li class="key"><span class="num">4</span><div><h3>The Wrong Turns — Avoid Distractions</h3><p>The small detours that feel harmless in the moment — and quietly cost you the most time you have.</p></div></li>
+      <li class="key"><span class="num">5</span><div><h3>Keep Climbing — Keep Going</h3><p>What to do after your first taste of success, so it doesn't quietly disappear again.</p></div></li>
+      <li class="key"><span class="num">6</span><div><h3>Other Hands — Outsource</h3><p>Why doing absolutely everything yourself is often the slowest way up the mountain.</p></div></li>
+      <li class="key"><span class="num">7</span><div><h3>The Village — Network</h3><p>Even a hermit knows: nobody actually gets there completely alone.</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split">
+    <div>
+      <svg class="mark" viewBox="0 0 40 40" fill="none"><path d="M20 6c-2 0-3.6 1.7-3.9 3.7C12 12.3 8 18.4 8 26.4c0 4.2 2.4 5.9 12 5.9s12-1.7 12-5.9c0-8-4-14.1-8.1-16.7C23.6 7.7 22 6 20 6z" fill="currentColor"/></svg>
+      <h2>Why take advice from a man who lives alone on a mountain?</h2>
+      <p>Fair question. He isn't selling you a shortcut — he spent years away from the noise, watching what actually works and what just looks like working from the outside.</p>
+      <p>The seven keys in this book aren't his invention. They're what he noticed, over and over, in the small number of people who quietly succeed while everyone else is busy chasing whatever's new this week.</p>
+    </div>
+    <div>
+      <h3 style="font-size:1.05rem;margin-bottom:.6em;">What's inside</h3>
+      <ul class="includes">
+        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>The complete <em>Seven Keys of the Mountain</em> eBook, in clear, modern English</span></li>
+        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Real, worked examples for each key — not just theory</span></li>
+        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>A short case study showing all seven keys used together</span></li>
+        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>A bonus chapter on the one thing that ties all seven together</span></li>
+        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Instant digital download — read on your phone, tablet, or computer</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq" style="background:var(--parchment-2);">
+  <div class="container measure">
+    <p class="kicker">Before you go</p>
+    <h2>A few questions people ask</h2>
+    <div class="faq">
+      <details>
+        <summary>Is this for total beginners?</summary>
+        <p>Yes. The seven keys apply whether you're starting from zero or you already have something running that's stalled out.</p>
+      </details>
+      <details>
+        <summary>What format is the book?</summary>
+        <p>A digital eBook you can read on any phone, tablet, or computer, delivered instantly after purchase.</p>
+      </details>
+      <details>
+        <summary>How long does it take to read?</summary>
+        <p>Most people finish it in a single sitting — an evening, or a couple of commutes. Applying it is the part that takes longer. That's rather the point.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="section cta-final" id="get-access">
+  <div class="container" style="max-width:520px;">
+    <h2>The mountain will still be there tomorrow. Will you?</h2>
+    <p style="color:var(--parchment-2);">Get <em>The Seven Keys of the Mountain</em> and start today instead of someday.</p>
+    <div class="price-row">
+      <span class="price">$10</span>
+      <span class="price-note">· instant download</span>
+    </div>
+    <a class="btn" href="#" style="padding:16px 36px;font-size:1.05rem;">Get the eBook</a>
+    <div class="guarantee-badge">
+      <svg viewBox="0 0 20 20" fill="none"><path d="M10 2l6 2.5v5c0 4.5-2.7 7.4-6 8.5-3.3-1.1-6-4-6-8.5v-5L10 2z" stroke="currentColor" stroke-width="1.5"/><path d="M7.2 10.2l1.9 1.9 3.7-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>14-day money-back guarantee, no questions asked</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="fbrand">The Mountain Hermit</div>
+    <div>© 2026 The Mountain Hermit. All rights reserved.</div>
+    <div>This book is for educational purposes. Results depend on your own effort and are not guaranteed.</div>
+  </div>
+</footer>
+
+</body>
+</html>
